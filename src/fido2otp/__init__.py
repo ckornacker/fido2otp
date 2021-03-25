@@ -43,6 +43,10 @@ def push(name, token, force, silent, collection, aaguid=None):
 def get(name, collection, silent):
     secret = keyring.get_secret(name, collection)
 
+    if not secret:
+      print("error: secret %s not found", name)
+      sys.exit(-1)
+
     attributes = secret.get_attributes()
 
     credential_id = attributes["id"]

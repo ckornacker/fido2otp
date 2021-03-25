@@ -1,4 +1,3 @@
-import sys
 import secretstorage
 
 def get_collection(name):
@@ -30,17 +29,13 @@ def set_secret(name, credential_id, token, password, aaguid, collection):
       collection.create_item(name, attributes, password)
 
 def get_secret(name, collection):
+    secret = None
     collection = get_collection(collection)
 
     if collection.is_locked():
       print('error: keyring "%" is locked' % collection)
-      sys.exit(-1)
-
-    items = collection.get_all_items()
-    secret = next((item for item in items if item.get_label() == name), None)
-
-    if not secret:
-      print('error: secret "%s" not found' % name)
-      sys.exit(-1)
+    else:
+      items = collection.get_all_items()
+      secret = next((item for item in items if item.get_label() == name), None)
 
     return secret
