@@ -30,7 +30,13 @@ setup(
     package_dir={'': 'src'},
     packages=find_packages(where='src'),
     python_requires='>=3.5, <4',
-    install_requires=['pyotp', 'secretstorage', 'Crypto', 'fido2', 'click'],
+    install_requires=[
+        'pyotp',
+        'secretstorage',
+        'Crypto',
+        'fido2>=0.9.0,<1',
+        'click'
+    ],
     entry_points={
         'console_scripts': [
             'fido2otp=fido2otp:cli',
